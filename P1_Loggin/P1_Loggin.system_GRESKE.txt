@@ -1,7 +1,0 @@
-1 GRESKA - linija 179 :  stavio sam (npr fullname[40]) a size_name>40, prelazio mi je jedan karakter u novi red i onda mi automatski stavi da je to email i odma me baci na password resenje  : while(getchar() != '\n');
-2 GRESKA - linija 167 : stavio sam scanf a on ne podrzava razmake, tako da sam morao da stavim fgets.
-3 GRESKA - linija 161 : while(getchar() != '\n'); trebao sam ocistiti buffer sa ovime zbog scanf i  fgets da ne dodje do zabune. Scanf kada se pretisne enter ne cita oznaku novog reda, tako da se to moze pojaviti u fscanf.
-4 GRESKA - linija 102: password u registration mi je bio sa scanf(), a u loggin sa fgets i onda nije moglo da se podudara(pretpostavlja da je zato sto fgets koristi \n posle entera), kada sam promenio u loggin fgets u scanf onda je radilo.
-5 GRESKA - linija 174 : koristio sam while(1) i onda je program konstantno vrteo u krug, zbog toga nije upisivalo podatke u dat file.
-6 GRESKA - linija 121 : nisam koristio for kako treba, stavio sam zatim ispravno da prolazi kroz brojeve dok ne nadje onaj email koji je pokalapa sa person+j, zatim kada je true onda current_indeks stavi da bute taj broj i njega koristim.
-7 GRESKA - linija 136 : promenio sam do while petlju skroz, koristio sam prvo da radi dokle god je strcmp razlicito, sada sam promenio i ubacio boolean, prvo biblioteku <stdbool.h> zatim bool email_found = fals. on ce biti true ako pronadje u if isti email kao uneti, a false ako ne pronadje. Do while ce raditi sve dok email_found bude false, odnosno !email_found
