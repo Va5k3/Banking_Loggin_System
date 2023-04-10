@@ -321,7 +321,7 @@ void registration_account(int n,struct person *Person,int num_users)
 
 
 
-                /* while(getchar() != '\n');
+                 while(getchar() != '\n');
                  printf("\nYour contact : ");
                  fgets((Person+i)->p_contact,40,stdin);
                  printf("Your adress : ");
@@ -347,7 +347,7 @@ void registration_account(int n,struct person *Person,int num_users)
                  else
                      printf("\nWrong button, try again..");
                  }while(askq!=1 && askq!=0);
-                 printf("\nCongratulations, you have successufully created an banking account!\n\nGo to loggin section!");*/
+                 printf("\nCongratulations, you have successufully created an banking account!\n\nGo to loggin section!");
                 //back to menu
                 menu_page(&n);
                 break;
