@@ -34,7 +34,7 @@ int main(void)
         printf("File error");
         return 1;
     }
-    int n,num_users=3;
+    int n,num_users=4;
 
     struct person *Person;
     Person = (struct person *) malloc(num_users*sizeof(struct person));
@@ -108,11 +108,12 @@ void transfer_function(struct person *Person, int n, int f_current_indeks, int n
         printf("\nName of the person you want to send money to: \n");
         fgets(transfer_name,45,stdin);
 
-        struct person Pom;
-        for(int i=1; i<=num_users; i++)
+        int person_found =0;
+        for(int i=1; i<=num_users; i++)                         // GRESKA 8 4.11.2023. / 23:00   promenio sam dokle ide for petlja i ubacio person_found, pre je radila tako sto proveri samo prvog (i) i ako prvi nije tacan odma ide na else da ispise da ne postoji !
         {
             if(strcmp((Person+i)->p_fullname,transfer_name)==0)
             {
+                person_found=1;
 
                 printf("\nAmout of money : \n");
                 scanf("%f",&transfer_amount);
@@ -122,11 +123,11 @@ void transfer_function(struct person *Person, int n, int f_current_indeks, int n
                 printf("\nYour previous condition : %2.f",(Person+f_current_indeks)->p_amount + transfer_amount);
                 printf("\nCurrent information : ");
                 person_information(Person,f_current_indeks);
-            }
-            else
+            }}
+            if(person_found==0){
                 printf("The name does not exist.. ");
-                break;
-        }
+                break;}
+
 
         break;
 
@@ -279,6 +280,7 @@ void registration_account(int n,struct person *Person,int num_users)
                     printf("\nEnter your full name : ");
                     (Person+i)->indeks=i;
                     fgets((Person+i)->p_fullname,45,stdin);             // 2 GRESKA
+
                     size_name = strlen((Person+i)->p_fullname);
                     //check_name_validity
 
