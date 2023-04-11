@@ -22,7 +22,7 @@ void loggin_account(int n, struct person *Person, int num_users);
 void registration_account(int n, struct person *Person, int num_users);
 void file_function(struct person *Person, int num_users, FILE *dat);
 void person_information(struct person *Person, int f_indeks);
-void transfer_function(struct person *Person, int n);
+void transfer_function(struct person *Person, int n, int f_current_indeks, int num_users);
 
 
 int main(void)
@@ -91,20 +91,42 @@ void menu_page(int *n)
 }
 
 
-void transfer_function(struct person *Person, int n)
+void transfer_function(struct person *Person, int n, int f_current_indeks, int num_users)
 {
     int log_n;
-    int transfer_name, transfer_amount;
+
+    char transfer_name[45];
+    float transfer_amount;
     printf("\nChoose the tasks you want to do:  \n1. Transfer money to another user.\n2. Taking a loan.\n3. Exit.\n");
     scanf("%d",&log_n);
     switch(log_n)
     {
 
     case 1:
+        while(getchar() != '\n');
+
         printf("\nName of the person you want to send money to: \n");
-        scanf("%s",&transfer_name);
-        printf("\nAmout of money : \n");
-        scanf("%d",&transfer_amount);
+        fgets(transfer_name,45,stdin);
+
+        struct person Pom;
+        for(int i=1; i<=num_users; i++)
+        {
+            if(strcmp((Person+i)->p_fullname,transfer_name)==0)
+            {
+
+                printf("\nAmout of money : \n");
+                scanf("%f",&transfer_amount);
+
+                (Person+f_current_indeks)->p_amount = (Person+f_current_indeks)->p_amount - transfer_amount;
+                (Person+i)->p_amount = (Person+i)->p_amount + transfer_amount;
+                printf("\nYour previous condition : %2.f",(Person+f_current_indeks)->p_amount + transfer_amount);
+                printf("\nCurrent information : ");
+                person_information(Person,f_current_indeks);
+            }
+            else
+                printf("The name does not exist.. ");
+                break;
+        }
 
         break;
 
@@ -220,7 +242,7 @@ void loggin_account(int n, struct person *Person, int num_users)
 
 
     person_information(Person,current_indeks);
-    transfer_function(Person,n);
+    transfer_function(Person,n, current_indeks,num_users);
 
 
 
@@ -321,14 +343,14 @@ void registration_account(int n,struct person *Person,int num_users)
 
 
 
-                 while(getchar() != '\n');
+                /* while(getchar() != '\n');
                  printf("\nYour contact : ");
                  fgets((Person+i)->p_contact,40,stdin);
                  printf("Your adress : ");
-                 fgets((Person+i)->p_adress,40,stdin);
-                 printf("Your amount of money that you have: ");
-                 scanf("%f",&(Person+i)->p_amount);
-                 printf("\nDo you have debt ?");
+                */  fgets((Person+i)->p_adress,40,stdin);
+                printf("Your amount of money that you have: ");
+                scanf("%f",&(Person+i)->p_amount);
+                /* printf("\nDo you have debt ?");
                  int askq;
 
                  do{
@@ -346,8 +368,8 @@ void registration_account(int n,struct person *Person,int num_users)
                  }
                  else
                      printf("\nWrong button, try again..");
-                 }while(askq!=1 && askq!=0);
-                 printf("\nCongratulations, you have successufully created an banking account!\n\nGo to loggin section!");
+                 }while(askq!=1 && askq!=0);*/
+                printf("\nCongratulations, you have successufully created an banking account!\n\nGo to loggin section!");
                 //back to menu
                 menu_page(&n);
                 break;
