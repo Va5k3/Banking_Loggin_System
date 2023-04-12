@@ -430,32 +430,36 @@ void registration_account(int n,struct person *Person,int num_users)
 
 
 
-                /* while(getchar() != '\n');
-                 printf("\nYour contact : ");
-                 fgets((Person+i)->p_contact,40,stdin);
-                 printf("Your adress : ");
-                */  fgets((Person+i)->p_adress,40,stdin);
+            while(getchar() != '\n');
+                printf("\nYour contact : ");
+                fgets((Person+i)->p_contact,40,stdin);
+
+                printf("Your adress : ");
+                fgets((Person+i)->p_adress,40,stdin);
+
                 printf("Your amount of money that you have: ");
                 scanf("%f",&(Person+i)->p_amount);
-                /* printf("\nDo you have debt ?");
-                 int askq;
 
-                 do{
-                 printf("\n0 - Yes, 1 - No.");
-                 scanf("%d",&askq);
-                 if(askq==0)
-                 {
-                     printf("How much debt do you have : ");
-                     scanf("%f",&(Person+i)->p_debt);
-                 }
-                 if(askq==1)
-                 {
-                     printf("So your debt is 0$");
-                     (Person+i)->p_debt = 0;
-                 }
-                 else
-                     printf("\nWrong button, try again..");
-                 }while(askq!=1 && askq!=0);*/
+                printf("\nDo you have debt ?");
+                int askq;
+                do
+                {
+                    printf("\n0 - Yes, 1 - No.");
+                    scanf("%d",&askq);
+                    if(askq==0)
+                    {
+                        printf("How much debt do you have : ");
+                        scanf("%f",&(Person+i)->p_debt);
+                    }
+                    if(askq==1)
+                    {
+                        printf("So your debt is 0$");
+                        (Person+i)->p_debt = 0;
+                    }
+                    else
+                        printf("\nWrong button, try again..");
+                }
+                while(askq!=1 && askq!=0);
                 printf("\nCongratulations, you have successufully created an banking account!\n\nGo to loggin section!");
                 //back to menu
                 menu_page(&n);
