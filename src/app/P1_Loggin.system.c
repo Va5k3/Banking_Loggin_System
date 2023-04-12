@@ -2,6 +2,7 @@
 
 
 
+
 struct person
 {
     int indeks;
@@ -14,6 +15,7 @@ struct person
     char p_contact[40];
 
 
+
 };
 
 void menu_page(int *n);
@@ -21,7 +23,7 @@ void loggin_account(int n, struct person *Person, int num_users);
 void registration_account(int n, struct person *Person, int num_users);
 void file_function(struct person *Person, int num_users, FILE *dat);
 void person_information(struct person *Person, int f_indeks);
-void transfer_function(struct person *Person, int n, int f_current_indeks, int num_users);
+void transfer_function(struct person *Person, int *n, int f_current_indeks, int num_users);
 
 
 int main(void)
@@ -90,14 +92,18 @@ void menu_page(int *n)
 }
 
 
-void transfer_function(struct person *Person, int n, int f_current_indeks, int num_users)
+void transfer_function(struct person *Person, int *n, int f_current_indeks, int num_users)
 {
     int log_n;
-
+    int installments=6;
+    int loan_money;
     char transfer_name[45];
     float transfer_amount;
     printf("\nChoose the tasks you want to do:  \n1. Transfer money to another user.\n2. Taking a loan.\n3. Exit.\n");
     scanf("%d",&log_n);
+
+
+
     switch(log_n)
     {
 
@@ -122,16 +128,96 @@ void transfer_function(struct person *Person, int n, int f_current_indeks, int n
                 printf("\nYour previous condition : %2.f",(Person+f_current_indeks)->p_amount + transfer_amount);
                 printf("\nCurrent information : ");
                 person_information(Person,f_current_indeks);
-            }}
-            if(person_found==0){
-                printf("The name does not exist.. ");
-                break;}
+                int exit;
+                printf("\n Press :\n Menu page - 3\n Exit - 5\n");
+                scanf("%d",&exit);
+                if(exit==5)
+                {
+                    *n = 5;
+
+                }
+                if (exit==3)
+                {
+                    *n = 3;
+                    menu_page(n);
+                }
+
+
+
+            }
+        }
+        if(person_found==0)
+        {
+            printf("The name does not exist.. ");
+            break;
+        }
 
 
         break;
 
     case 2:
-        printf("Your choose is taking a loan.\n Please give me  : \n");
+        printf("Your choose is taking a loan.\n\nHow much money you would like: \n");
+        do
+        {
+            scanf("%d",&loan_money);
+        }
+        while(loan_money<1);
+        printf("\nChoose on how many installments you would like to pay it off :  ");
+        printf("\n 6 installments.\n 12 installments.\n 24 installments.\n 36 installments.\n 48 installments.\n  ");
+        do
+        {
+
+            if(!(installments==6 || installments==12 || installments==24 || installments==36 || installments==48))
+            {
+                printf("\nYou have selected non-existed installment.\nTry again: ");
+
+            }
+            scanf("%d",&installments);
+            if(installments==6)
+            {
+                printf("\nYou have choosen a 6-month installments plan for the loan, with a monthly payment of %.2f$.",(float)loan_money/6+10);
+                printf("\nOn your loan, the interest rate is  10$");
+
+
+            }
+            if(installments==12)
+            {
+                printf("\nYou have choosen a 12-month installments plan for the loan, with a monthly payment of %.2f$.",(float)loan_money/12+20);
+                printf("\nOn your loan, the interest rate is  20$");
+            }
+            if(installments==24)
+            {
+                printf("\nYou have choosen a 24-month installments plan for the loan, with a monthly payment of %.2f$.",(float)loan_money/24+30);
+                printf("\nOn your loan, the interest rate is  30$");
+            }
+            if(installments==36)
+            {
+                printf("\nYou have choosen a 36-month installments plan for the loan, with a monthly payment of %.2f$.",(float)loan_money/36+40);
+                printf("\nOn your loan, the interest rate is  40$");
+            }
+            if(installments==48)
+            {
+                printf("\nYou have choosen a 48-month installments plan for the loan, with a monthly payment of %.2f$.",(float)loan_money/48+50);
+                printf("\nOn your loan, the interest rate is  50$");
+            }
+        }
+        while(!(installments==6 || installments==12 || installments==24 || installments==36 || installments==48));
+        (Person+f_current_indeks)->p_amount = (Person+f_current_indeks)->p_amount + loan_money;
+        person_information(Person,f_current_indeks);
+        int exit;
+        printf("\n Press :\n Menu page - 3\n Exit - 5\n");
+        scanf("%d",&exit);
+        if(exit==5)
+        {
+            *n = 5;
+
+        }
+        if (exit==3)
+        {
+            *n = 3;
+            menu_page(n);
+        }
+
         break;
 
     case 3 :
@@ -264,8 +350,8 @@ void registration_account(int n,struct person *Person,int num_users)
             case 1:
                 // clear_buffer
                 while(getchar() != '\n');
-                loggin_account(n,Person, num_users);
-                menu_page(&n);
+                loggin_account(&n,Person, num_users);
+                //menu_page(&n);
                 break;
 
             case 2:
@@ -374,7 +460,12 @@ void registration_account(int n,struct person *Person,int num_users)
                 //back to menu
                 menu_page(&n);
                 break;
+            case 5 :
+                printf("\nThank you for visiting, we look forward to seeing you soon!\n\n");
 
+                n=3;
+                i = num_users+1;
+                break;
             default :
                 printf("Choosen the wrong number...");
                 n=3;
