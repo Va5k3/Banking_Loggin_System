@@ -81,7 +81,7 @@ void menu_page(int *n)
 
 
     printf("\n\n\t----------------------------------Wellcome to banking system----------------------------------\n\n\n");
-    printf("|Wellcome to my first coding project. Any suggestion are welcome and appreciated.|\n|Instruction : First go on registration page to create your account(Test all incorrect password/name...), then proceed to the loggin page.|\n\n\n");
+    printf("|Wellcome to my first coding project. Any suggestion are welcome and appreciated.|\n|Instruction : First go on registration page to create your account(Test all incorrect password/name...), then proceed to the loggin page. Here you can preform transaction, apply for loans, to see your information etc. *If u want to preform transaction you, you need to register multiple accounts to which you want to send transaction*|\n\n\n");
     printf("1. Loggin me.\n2. Register me.\n3. Exit.\n");
     printf("\nSelect number : ");
     scanf("%d",&(*n));
